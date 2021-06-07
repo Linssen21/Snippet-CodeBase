@@ -3,6 +3,7 @@ import { Divider, Typography, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Searchbar from "../components/Searchbar";
 import Navigation from "../components/Navigation";
+import CustomList from '../components/CustomList'
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -23,6 +24,7 @@ const Home = () => {
             Recently Added
           </Typography>
           <Navigation />
+          <CustomList/>
         </Container>
       </div>
     </React.Fragment>

@@ -19,10 +19,10 @@ const Navigation = () => {
   const linkArray = ["javascript", "html", "php", "css", "ruby", "objective-c"];
 
   return (
-    <Breadcrumbs class={classes.container} aria-label="breadcrumb">
+    <Breadcrumbs className={classes.container} aria-label="breadcrumb">
       <Link
         aria-current="page"
-        color="text-primary"
+        color="textPrimary"
         href="#"
         onClick={handleClick}
       >
@@ -31,10 +31,11 @@ const Navigation = () => {
       {!!linkArray &&
         linkArray.map((value, index) => (
           <Link
-            class={classes.text}
+            className={classes.text}
             color="inherit"
             href="#"
             onClick={handleClick}
+            key={index}
           >
             {value}
           </Link>

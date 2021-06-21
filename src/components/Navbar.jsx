@@ -26,19 +26,17 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <AppBar position="sticky">
-        <Container maxWidth="lg">
-          <Toolbar>
-            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+        <Toolbar>
+          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton> */}
-            <img src={logo} alt="Snippets Codebase Logo" />
-            <Typography variant="h6" className={classes.title}>
-              SNPPTS
-            </Typography>
-            <Button color="inherit">SNPPT</Button>
-            <Button color="inherit">GOPIK</Button>
-          </Toolbar>
-        </Container>
+          <img src={logo} alt="Snippets Codebase Logo" />
+          <Typography variant="h6" className={classes.title}>
+            SNPPTS
+          </Typography>
+          <Button color="inherit">SNPPT</Button>
+          <Button color="inherit">GOPIK</Button>
+        </Toolbar>
       </AppBar>
     </div>
   );

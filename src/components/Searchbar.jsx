@@ -18,22 +18,20 @@ const useStyles = makeStyles((theme) => ({
 const Searchbar = () => {
   const classes = useStyles();
   return (
-    <Container maxWidth="lg">
-      <FormControl fullWidth className={classes.form}>
-        <InputBase
-          placeholder="Find by collection, tag, code..."
-          id="standard-adornment-search"
-          fullWidth
-          startAdornment={
-            <InputAdornment position="start">
-              <IconButton type="submit" aria-label="search">
-                <Search />
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-    </Container>
+    <FormControl fullWidth className={classes.form}>
+      <InputBase
+        placeholder="Find by collection, tag, code..."
+        id="standard-adornment-search"
+        fullWidth
+        startAdornment={
+          <InputAdornment position="start">
+            <IconButton type="submit" aria-label="search">
+              <Search />
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+    </FormControl>
   );
 };
 

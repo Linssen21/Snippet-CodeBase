@@ -1,10 +1,12 @@
 import React from "react";
-import { Divider, Typography, Grid } from "@material-ui/core";
+import { Divider, Typography, Grid, Box } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import Searchbar from "../components/Searchbar";
 import Navigation from "../components/Navigation";
 import CustomList from "../components/CustomList";
 import LoginCard from "../components/LoginCard";
+import Resources from "../components/Resources";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -26,7 +28,13 @@ const Home = () => {
               Recently Added
             </Typography>
             <Navigation />
-            <CustomList />
+            {[0, 1, 2, 3, 4, 5].map((value) => {
+              return <CustomList key={value} />;
+            })}
+            <Box p={4}>
+              {" "}
+              <Pagination count={10} color="primary" />
+            </Box>
           </Grid>
 
           <Grid item md>
@@ -34,11 +42,18 @@ const Home = () => {
               Recently Added
             </Typography>
             <Navigation />
-            <CustomList />
+            {[0, 1, 2, 3, 4, 5].map((value) => {
+              return <CustomList key={value} />;
+            })}
+            <Box p={4}>
+              {" "}
+              <Pagination count={10} color="primary" />
+            </Box>
           </Grid>
 
           <Grid item md={3}>
             <LoginCard />
+            <Resources />
           </Grid>
         </Grid>
       </div>

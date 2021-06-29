@@ -24,6 +24,9 @@ function LoginCard() {
     heading: {
       textAlign: "center",
     },
+    signUpLink: {
+      paddingTop: theme.spacing(2),
+    },
   }));
   const classes = useStyles();
   return (
@@ -80,7 +83,7 @@ function LoginCard() {
             LOGIN WITH GMAIL
           </Button>
         </div>
-        <div>
+        <div className={classes.signUpLink}>
           <Typography>
             Don't have any account?
             <Link href="#" color="primary">

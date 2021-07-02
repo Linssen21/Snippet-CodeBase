@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Divider, Typography, Grid, Box } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +7,8 @@ import Navigation from "../components/Navigation";
 import CustomList from "../components/CustomList";
 import LoginCard from "../components/LoginCard";
 import Resources from "../components/Resources";
+import axios from "axios";
+import handleAsync from "../utils/handleAsync";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -14,8 +16,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const { REACT_APP_WORDPRESS_API } = process.env;
+
+const fetchSnippet = async () => {
+  const [result, error] = await handleAsync(
+    axios.get(`${REACT_APP_WORDPRESS_API}`)
+  );
+  if (result) {
+    return result;
+  } else {
+    return error;
+  }
+};
+
 const Home = () => {
   const classes = useStyles();
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetchSnippet();
+      console.log(response);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <React.Fragment>

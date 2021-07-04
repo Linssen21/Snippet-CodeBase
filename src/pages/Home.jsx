@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Divider, Typography, Grid, Box } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,7 +20,9 @@ const { REACT_APP_WORDPRESS_API } = process.env;
 
 const fetchSnippet = async () => {
   const [result, error] = await handleAsync(
-    axios.get(`${REACT_APP_WORDPRESS_API}`)
+    axios.get(
+      `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
+    )
   );
   if (result) {
     return result;
@@ -30,16 +32,21 @@ const fetchSnippet = async () => {
 };
 
 const Home = () => {
+  const [data, setData] = useState();
+
   const classes = useStyles();
 
   useEffect(() => {
     async function fetchData() {
       const response = await fetchSnippet();
-      console.log(response);
+      const { data } = response;
+      setData(data);
     }
 
     fetchData();
   }, []);
+
+  console.log(data);
 
   return (
     <React.Fragment>
@@ -52,9 +59,11 @@ const Home = () => {
               Recently Added
             </Typography>
             <Navigation />
-            {[0, 1, 2, 3, 4, 5].map((value) => {
-              return <CustomList key={value} />;
-            })}
+            {!!data &&
+              data.map((value, index) => {
+                return <CustomList value={value} key={index} />;
+              })}
+
             <Box p={4}>
               {" "}
               <Pagination count={10} color="primary" />

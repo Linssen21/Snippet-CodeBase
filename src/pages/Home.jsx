@@ -9,6 +9,7 @@ import LoginCard from "../components/LoginCard";
 import Resources from "../components/Resources";
 import axios from "axios";
 import handleAsync from "../utils/handleAsync";
+import useFetch from "../utils/useFetch";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -18,35 +19,39 @@ const useStyles = makeStyles((theme) => ({
 
 const { REACT_APP_WORDPRESS_API } = process.env;
 
-const fetchSnippet = async () => {
-  const [result, error] = await handleAsync(
-    axios.get(
-      `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
-    )
-  );
-  if (result) {
-    return result;
-  } else {
-    return error;
-  }
-};
+// const fetchSnippet = async () => {
+//   const [result, error] = await handleAsync(
+//     axios.get(
+//       `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
+//     )
+//   );
+//   if (result) {
+//     return result;
+//   } else {
+//     return error;
+//   }
+// };
 
 const Home = () => {
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
 
   const classes = useStyles();
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetchSnippet();
-      const { data } = response;
-      setData(data);
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetchSnippet();
+  //     const { data } = response;
+  //     setData(data);
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  console.log(data);
+  // console.log(data);
+
+  const data = useFetch(
+    `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
+  );
 
   return (
     <React.Fragment>

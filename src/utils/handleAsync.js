@@ -22,4 +22,4 @@ const handleAsyc = (promise) => {
     .catch((error) => Promise.resolve([undefined, error]));
 };
 
-module.exports = handleAsyc;
+export default handleAsyc;

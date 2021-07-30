@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -9,8 +10,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import axios from "axios";
-import handleAsync from "../utils/handleAsync";
+import _ from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,54 +30,51 @@ const useStyles = makeStyles((theme) => ({
   listContent: {
     margin: theme.spacing(2, 0, 2),
   },
+  marginRight: {
+    marginRight: "12px",
+  },
 }));
-
-const { REACT_APP_WORDPRESS_API } = process.env;
-
-// const getTerms = async (response) => {
-//   const termObjects = {};
-
-//   for (const taxonomyTerms of response._embedded["wp:term"]) {
-//     for (const term of taxonomyTerms) {
-//       termObjects[term.id] = term;
-//     }
-//   }
-// };
 
 export default function CustomList({ value }) {
   const classes = useStyles();
-  const [categories, setCategories] = useState();
 
-  function getTerms(taxonomy, response, termObjects) {
-    const terms = [];
+  const { id, _embedded, title } = value;
 
-    for (const termId of response[taxonomy]) {
-      terms.push(termObjects[termId]);
+  console.log(value.id);
+
+  function getCategory() {
+    let category;
+    if (_embedded) {
+      category = _.map(_embedded, (value, key) => {
+        if (key === "wp:term") {
+          return value[0][0];
+        }
+      });
+      return category[1];
     }
-
-    return terms;
+    return category;
   }
 
-  useEffect(() => {
-    const termObjects = {};
-
-    // for (const taxonomyTerms of value._embedded["wp:term"]) {
-    //   for (const term of taxonomyTerms) {
-    //     termObjects[term.id] = term;
-    //   }
-    // }
-    if (value) {
-      console.log(value._embedded, "CustomList");
-      // setCategories(getTerms("snippet_category", value, termObjects));
+  function getAuthor() {
+    if (_embedded) {
+      let author = _.map(_embedded, (value, key) => {
+        if (key === "author") {
+          return value[0];
+        }
+      });
+      return author[0];
     }
-  }, [value]);
+  }
+
+  const { name: categoryName } = getCategory();
+  const { name: authorName } = getAuthor();
 
   return (
     <Card elevation={0}>
       <CardContent>
         <Typography className={classes.listContent}>
-          <Chip size="small" label="Javascript" color="primary" /> VATulator -
-          Online VAT Calculator
+          <Chip size="small" label={categoryName} color="primary" />{" "}
+          <Link to={`/snippets/${id}`}>{title.rendered}</Link>
         </Typography>
 
         <Typography className={classes.listContent}>
@@ -85,7 +82,8 @@ export default function CustomList({ value }) {
           TAGS <Chip size="small" label="Javascript" />{" "}
         </Typography>
         <Grid container>
-          <VisibilityIcon /> <Typography> 231 views Posted By Niel</Typography>
+          <VisibilityIcon className={classes.marginRight} />
+          <Typography> Posted By {authorName} </Typography>
         </Grid>
       </CardContent>
       <Divider />

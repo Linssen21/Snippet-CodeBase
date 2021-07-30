@@ -7,6 +7,9 @@ import {
 import React from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Snippet from "./pages/Snippet";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "highlight.js/styles/default.css";
 
 const theme = createMuiTheme({
   palette: {
@@ -40,7 +43,12 @@ export default function App() {
       <CssBaseline>
         <Navbar />
         <Container maxWidth="xl">
-          <Home />
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/snippets/:id" component={Snippet} />
+            </Switch>
+          </BrowserRouter>
         </Container>
       </CssBaseline>
     </ThemeProvider>

@@ -7,8 +7,7 @@ import Navigation from "../components/Navigation";
 import CustomList from "../components/CustomList";
 import LoginCard from "../components/LoginCard";
 import Resources from "../components/Resources";
-import axios from "axios";
-import handleAsync from "../utils/handleAsync";
+
 import useFetch from "../utils/useFetch";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,9 +48,13 @@ const Home = () => {
 
   // console.log(data);
 
-  const data = useFetch(
+  const { data, loading } = useFetch(
     `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
   );
+
+  if (loading) {
+    return <div> Loading...</div>;
+  }
 
   return (
     <React.Fragment>
@@ -80,9 +83,7 @@ const Home = () => {
               Recently Added
             </Typography>
             <Navigation />
-            {[0, 1, 2, 3, 4, 5].map((value) => {
-              return <CustomList key={value} />;
-            })}
+
             <Box p={4}>
               {" "}
               <Pagination count={10} color="primary" />

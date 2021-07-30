@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../utils/useFetch";
 import Highlighter from "../utils/highLightCode";
 
+
 const { REACT_APP_WORDPRESS_API } = process.env;
 
 export default function Snippet() {

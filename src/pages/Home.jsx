@@ -49,7 +49,7 @@ const Home = () => {
   // console.log(data);
 
   const { data, loading } = useFetch(
-    `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
+    `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed&page=1`
   );
 
   if (loading) {

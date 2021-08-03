@@ -40,7 +40,7 @@ export default function CustomList({ value }) {
 
   const { id, _embedded, title } = value;
 
-  console.log(value.id);
+  console.log(value._embedded);
 
   function getCategory() {
     let category;

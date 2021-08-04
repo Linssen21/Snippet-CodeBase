@@ -6,8 +6,8 @@ export default function useFetch(url) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [count, setCount] = useState(null);
-  const [pages, setTotalPages] = useState(null);
+  // const [count, setCount] = useState(null);
+  // const [pages, setTotalPages] = useState(null);
 
   useEffect(() => {
     async function loadData() {
@@ -20,7 +20,9 @@ export default function useFetch(url) {
       }
       console.log(result.headers["x-wp-total"]);
       const posts = await result.data;
+      // const count = result.headers["x-wp-total"];
       setData(posts);
+      // setCount(count);
       setLoading(false);
     }
 

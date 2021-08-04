@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../utils/useFetch";
-import Highlighter from "../utils/highLightCode";
+import Highlighter from "../components/HighLightCode";
 import _ from "lodash";
 
 const { REACT_APP_WORDPRESS_API } = process.env;
@@ -20,7 +20,6 @@ export default function Snippet() {
   const {
     data: language,
     lodaing: languageLoading,
-    error,
   } = useFetch(`${REACT_APP_WORDPRESS_API}/snippet_language?post=${id}`);
 
   if (loading || languageLoading) {

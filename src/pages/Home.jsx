@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Divider, Typography, Grid, Box } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,7 +49,7 @@ const Home = () => {
   // console.log(data);
 
   const { data, loading } = useFetch(
-    `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed&page=1`
+    `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
   );
 
   if (loading) {

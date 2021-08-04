@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
 const Searchbar = () => {
   const classes = useStyles();
   return (
-    <FormControl fullWidth className={classes.form}>
+    <FormControl  className={classes.form}>
       <InputBase
         placeholder="Find by collection, tag, code..."
         id="standard-adornment-search"
-        fullWidth
+        
         startAdornment={
           <InputAdornment position="start">
             <IconButton type="submit" aria-label="search">

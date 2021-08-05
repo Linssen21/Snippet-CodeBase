@@ -8,14 +8,53 @@ import CustomList from "../components/CustomList";
 import LoginCard from "../components/LoginCard";
 import Resources from "../components/Resources";
 
+import useFetch from "../utils/useFetch";
+
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
   },
 }));
 
+const { REACT_APP_WORDPRESS_API } = process.env;
+
+// const fetchSnippet = async () => {
+//   const [result, error] = await handleAsync(
+//     axios.get(
+//       `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
+//     )
+//   );
+//   if (result) {
+//     return result;
+//   } else {
+//     return error;
+//   }
+// };
+
 const Home = () => {
+  // const [data, setData] = useState();
+
   const classes = useStyles();
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetchSnippet();
+  //     const { data } = response;
+  //     setData(data);
+  //   }
+
+  //   fetchData();
+  // }, []);
+
+  // console.log(data);
+
+  const { data, loading } = useFetch(
+    `${REACT_APP_WORDPRESS_API}/snippets?_fields=id,title,slug,cmb2,snippet_category,snippet_tag,_links,_embedded&_embed`
+  );
+
+  if (loading) {
+    return <div> Loading...</div>;
+  }
 
   return (
     <React.Fragment>
@@ -28,9 +67,11 @@ const Home = () => {
               Recently Added
             </Typography>
             <Navigation />
-            {[0, 1, 2, 3, 4, 5].map((value) => {
-              return <CustomList key={value} />;
-            })}
+            {!!data &&
+              data.map((value, index) => {
+                return <CustomList value={value} key={index} />;
+              })}
+
             <Box p={4}>
               {" "}
               <Pagination count={10} color="primary" />
@@ -42,9 +83,7 @@ const Home = () => {
               Recently Added
             </Typography>
             <Navigation />
-            {[0, 1, 2, 3, 4, 5].map((value) => {
-              return <CustomList key={value} />;
-            })}
+
             <Box p={4}>
               {" "}
               <Pagination count={10} color="primary" />

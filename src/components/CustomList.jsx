@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -9,6 +10,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import _ from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,17 +30,51 @@ const useStyles = makeStyles((theme) => ({
   listContent: {
     margin: theme.spacing(2, 0, 2),
   },
+  marginRight: {
+    marginRight: "12px",
+  },
 }));
 
-export default function CustomList() {
+export default function CustomList({ value }) {
   const classes = useStyles();
+
+  const { id, _embedded, title } = value;
+
+  console.log(value._embedded);
+
+  function getCategory() {
+    let category;
+    if (_embedded) {
+      category = _.map(_embedded, (value, key) => {
+        if (key === "wp:term") {
+          return value[0][0];
+        }
+      });
+      return category[1];
+    }
+    return category;
+  }
+
+  function getAuthor() {
+    if (_embedded) {
+      let author = _.map(_embedded, (value, key) => {
+        if (key === "author") {
+          return value[0];
+        }
+      });
+      return author[0];
+    }
+  }
+
+  const { name: categoryName } = getCategory();
+  const { name: authorName } = getAuthor();
 
   return (
     <Card elevation={0}>
       <CardContent>
         <Typography className={classes.listContent}>
-          <Chip size="small" label="Javascript" color="primary" /> VATulator -
-          Online VAT Calculator
+          <Chip size="small" label={categoryName} color="primary" />{" "}
+          <Link to={`/snippets/${id}`}>{title.rendered}</Link>
         </Typography>
 
         <Typography className={classes.listContent}>
@@ -46,7 +82,8 @@ export default function CustomList() {
           TAGS <Chip size="small" label="Javascript" />{" "}
         </Typography>
         <Grid container>
-          <VisibilityIcon /> <Typography> 231 views Posted By Niel</Typography>
+          <VisibilityIcon className={classes.marginRight} />
+          <Typography> Posted By {authorName} </Typography>
         </Grid>
       </CardContent>
       <Divider />

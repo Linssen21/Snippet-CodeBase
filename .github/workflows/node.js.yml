@@ -30,6 +30,6 @@ jobs:
     - name: FTP-Deploy-Action
       uses: Snippet-Action@1.0.0
       with:
-        ftp-server: ftp.snppts.com:21/public_html
+        ftp-server: vps51976.inmotionhosting.com
         ftp-username: snppts
         ftp-password: ${{ secrets.FTP_PASSWORD }}

@@ -27,3 +27,9 @@ jobs:
     - run: npm i
     - run: npm run build --if-present
     - run: npm test
+    - name: FTP-Deploy-Action
+      uses: Snippet-Action@1.0.0
+      with:
+        ftp-server: ftp.snppts.com:21/public_html
+        ftp-username: snppts
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
